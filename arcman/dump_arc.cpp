@@ -983,16 +983,20 @@ dump_output_bufptr_t bindump_archive::generate_file_content(const uint8_t *data,
     {
         return dump_output_bufptr_t(new dump_output_buffer());
     }
+    if (increment_file_no)
+    {
+        dump_output_bufptr_t buf(new dump_output_buffer(datasize + 1));
 
-    dump_output_bufptr_t buf(new dump_output_buffer(datasize + 1));
+        size_t dstsize = buf->get_remaining_usable_size();
+        ARJ_Assert(dstsize == datasize + 1);
+        memcpy(buf->get_append_ref(), data, datasize);
 
-    size_t dstsize = buf->get_remaining_usable_size();
-    ARJ_Assert(dstsize == datasize + 1);
-    memcpy(buf->get_append_ref(), data, datasize);
+        buf->set_appended_length(datasize);
 
-    buf->set_appended_length(datasize);
-
-    return buf;
+        return buf;
+    }else{
+        return dump_output_bufptr_t(new dump_output_buffer());
+    }
 }
 
 dump_output_bufptr_t bindump_archive::generate_end(bool end_of_archive)
