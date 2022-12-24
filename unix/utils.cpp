@@ -1,7 +1,11 @@
 
 #include "gup.h"
 
+#if defined(__APPLE__)
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

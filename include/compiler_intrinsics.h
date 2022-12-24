@@ -2,6 +2,7 @@
 //   and
 // https://github.com/yuikns/intrin
 
+#if !defined(__APPLE__) 
 #include <immintrin.h>
 
 #if defined(_MSC_VER)
@@ -22,6 +23,7 @@
 #elif defined(__GNUC__) && defined(__SPE__)
      /* GCC-compatible compiler, targeting PowerPC with SPE */
      #include <spe.h>
+#endif
 #endif
 
 #ifdef _MSC_VER
